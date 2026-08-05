@@ -1,0 +1,242 @@
+import Link from "next/link";
+import { ArrowRight, TrendingUp, Users, Target, BookOpen, ChevronRight, PlayCircle, Star } from "lucide-react";
+import dbConnect from "@/lib/mongodb";
+import Course from "@/models/Course";
+import CourseCard from "@/components/CourseCard";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/FadeIn";
+
+async function getFeaturedCourses() {
+  try {
+    await dbConnect();
+    const courses = await Course.find({ isPublished: true })
+      .sort({ createdAt: -1 })
+      .limit(3)
+      .lean();
+    return JSON.parse(JSON.stringify(courses));
+  } catch (error) {
+    console.error("Failed to fetch featured courses:", error);
+    return [];
+  }
+}
+
+export default async function Home() {
+  const courses = await getFeaturedCourses();
+
+  return (
+    <div className="flex flex-col w-full bg-[#030303] text-foreground selection:bg-primary/30">
+      
+      {/* --- HERO SECTION --- */}
+      <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden pt-20">
+        
+        {/* Abstract Animated Background Elements */}
+        <div className="absolute inset-0 w-full h-full">
+          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] mix-blend-screen animate-pulse duration-10000" />
+          <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-accent/20 rounded-full blur-[150px] mix-blend-screen animate-pulse duration-[12000ms] delay-1000" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-600/10 rounded-full blur-[100px] mix-blend-screen" />
+          
+          {/* Noise overlay for texture */}
+          <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+        </div>
+
+        <div className="container relative z-10 mx-auto px-4 flex flex-col items-center text-center">
+          <FadeIn delay={0.1} direction="up">
+            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8 hover:bg-white/10 transition-colors cursor-pointer group">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
+              </span>
+              <span className="text-sm font-semibold tracking-wider text-white/90">New Masterclasses Open</span>
+              <ChevronRight size={16} className="text-white/50 group-hover:text-white/90 transition-colors" />
+            </div>
+          </FadeIn>
+          
+          <FadeIn delay={0.2} direction="up">
+            <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter mb-8 max-w-6xl leading-[1.1]">
+              <span className="text-white drop-shadow-sm">Dominate</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-b from-white/60 to-white/20 px-4 italic font-serif">the</span> 
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-400 to-accent drop-shadow-[0_0_30px_rgba(37,99,235,0.4)]">Digital Space.</span>
+            </h1>
+          </FadeIn>
+          
+          <FadeIn delay={0.3} direction="up">
+            <p className="text-xl md:text-2xl text-white/60 mb-12 max-w-3xl font-light leading-relaxed">
+              Elite performance marketing training for those who want to build real brands, scale revenue, and master AI-driven growth.
+            </p>
+          </FadeIn>
+          
+          <FadeIn delay={0.4} direction="up">
+            <div className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto items-center justify-center">
+              <Link 
+                href="/courses" 
+                className="relative overflow-hidden bg-primary text-white px-10 py-5 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 group shadow-[0_0_40px_-10px_rgba(37,99,235,0.6)] hover:shadow-[0_0_60px_-5px_rgba(37,99,235,0.8)] hover:-translate-y-1 transition-all duration-300"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+                Explore Programs
+                <ArrowRight size={22} className="group-hover:translate-x-1.5 transition-transform" />
+              </Link>
+              <Link 
+                href="/contact" 
+                className="bg-white/5 backdrop-blur-md text-white border border-white/10 px-10 py-5 rounded-2xl font-bold text-lg hover:bg-white/10 hover:border-white/20 transition-all flex items-center justify-center hover:-translate-y-1"
+              >
+                <PlayCircle size={22} className="mr-3 text-accent" />
+                Watch Free Training
+              </Link>
+            </div>
+          </FadeIn>
+          
+          <FadeIn delay={0.6} direction="up">
+            <div className="mt-20 flex items-center gap-4 text-white/40 text-sm font-medium">
+              <div className="flex -space-x-3">
+                {[1,2,3,4].map(i => (
+                  <div key={i} className="w-10 h-10 rounded-full border-2 border-[#030303] bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+                    <Star size={12} className="text-accent" />
+                  </div>
+                ))}
+              </div>
+              <p>Joined by <span className="text-white/80 font-bold">500+</span> elite marketers.</p>
+            </div>
+          </FadeIn>
+        </div>
+        
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+          <div className="w-8 h-12 rounded-full border-2 border-white/20 flex items-start justify-center p-2">
+            <div className="w-1 h-3 bg-white/40 rounded-full" />
+          </div>
+        </div>
+      </section>
+
+      {/* --- STATS SECTION --- */}
+      <section className="py-24 border-y border-white/5 bg-white/[0.02] backdrop-blur-3xl relative z-20">
+        <div className="container mx-auto px-4">
+          <StaggerContainer>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
+              {[
+                { label: "Ad Spend Managed", value: "$50M+", icon: Target },
+                { label: "Successful Students", value: "500+", icon: Users },
+                { label: "Hours of Content", value: "100+", icon: BookOpen },
+                { label: "Average ROAS", value: "4.5x", icon: TrendingUp },
+              ].map((stat, i) => (
+                <StaggerItem key={i}>
+                  <div className="flex flex-col items-center text-center p-8 rounded-3xl bg-gradient-to-b from-white/5 to-transparent border border-white/5 hover:border-white/10 transition-all duration-300 hover:-translate-y-2 group">
+                    <div className="p-4 bg-primary/10 rounded-2xl text-primary mb-6 group-hover:scale-110 transition-transform duration-300">
+                      <stat.icon className="w-8 h-8" />
+                    </div>
+                    <h3 className="text-4xl md:text-5xl font-black text-white mb-3 tracking-tight">{stat.value}</h3>
+                    <p className="text-white/50 font-medium uppercase tracking-wider text-sm">{stat.label}</p>
+                  </div>
+                </StaggerItem>
+              ))}
+            </div>
+          </StaggerContainer>
+        </div>
+      </section>
+
+      {/* --- FEATURED COURSES SECTION --- */}
+      <section className="py-32 relative">
+        <div className="container mx-auto px-4 relative z-10">
+          <FadeIn direction="up">
+            <div className="text-center mb-20">
+              <h2 className="text-5xl md:text-6xl font-black tracking-tight mb-6 text-white">
+                Premium <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-orange-400">Masterclasses</span>
+              </h2>
+              <p className="text-xl text-white/50 max-w-2xl mx-auto font-light">
+                Zero fluff. Just battle-tested strategies, exact frameworks, and step-by-step execution guides to print money online.
+              </p>
+            </div>
+          </FadeIn>
+
+          {courses.length > 0 ? (
+            <StaggerContainer>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                {courses.map((course: any) => (
+                  <StaggerItem key={course._id}>
+                    <div className="h-full group">
+                      <CourseCard course={course} />
+                    </div>
+                  </StaggerItem>
+                ))}
+              </div>
+            </StaggerContainer>
+          ) : (
+            <FadeIn direction="up">
+              <div className="text-center py-24 bg-white/5 rounded-3xl border border-white/10 max-w-3xl mx-auto backdrop-blur-md">
+                <h3 className="text-3xl font-bold mb-4 text-white">Exciting Courses Dropping Soon</h3>
+                <p className="text-white/50 text-lg">We are currently crafting some amazing content. Check back shortly.</p>
+              </div>
+            </FadeIn>
+          )}
+          
+          {courses.length > 0 && (
+            <FadeIn delay={0.4} direction="up">
+              <div className="text-center mt-20">
+                <Link 
+                  href="/courses" 
+                  className="inline-flex items-center gap-3 bg-white/5 border border-white/10 px-8 py-4 rounded-full text-white font-bold hover:bg-white/10 transition-all group"
+                >
+                  View All Programs <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform text-primary" />
+                </Link>
+              </div>
+            </FadeIn>
+          )}
+        </div>
+      </section>
+
+      {/* --- SERVICES SECTION --- */}
+      <section className="py-32 bg-[#080808] border-t border-white/5 relative overflow-hidden">
+        {/* Subtle grid background */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <FadeIn direction="up">
+            <div className="text-center mb-20 flex flex-col items-center">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent border border-accent/20 mb-6">
+                <span className="text-xs font-bold uppercase tracking-widest">Agency Services</span>
+              </div>
+              <h2 className="text-5xl md:text-6xl font-black tracking-tight mb-6 text-white">
+                Done-For-You <span className="font-serif italic font-light text-white/60">Execution</span>
+              </h2>
+              <p className="text-xl text-white/50 max-w-2xl mx-auto font-light">
+                Not looking to learn? Let my elite team build and manage your performance systems from the ground up.
+              </p>
+            </div>
+          </FadeIn>
+          
+          <StaggerContainer>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              {[
+                "Meta Ads Engine", 
+                "Google Ads Revenue", 
+                "SEO Growth Blueprint", 
+                "AI-Powered Creative", 
+                "Funnel Architecture", 
+                "Full Campaign Audit"
+              ].map((service, i) => (
+                <StaggerItem key={i}>
+                  <div className="relative p-8 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all cursor-pointer group overflow-hidden h-full">
+                    {/* Hover Glow Effect */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-[50px] -translate-y-1/2 translate-x-1/2 group-hover:bg-primary/40 transition-colors duration-500" />
+                    
+                    <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-primary transition-colors">{service}</h3>
+                    <p className="text-white/40 leading-relaxed font-light">Professional execution mapped to your specific business goals, ROAS targets, and KPIs.</p>
+                  </div>
+                </StaggerItem>
+              ))}
+            </div>
+          </StaggerContainer>
+          
+          <FadeIn delay={0.3} direction="up">
+            <div className="text-center mt-20">
+              <Link 
+                href="/contact" 
+                className="inline-flex items-center justify-center px-10 py-5 bg-white text-black font-bold rounded-2xl hover:bg-gray-200 transition-all gap-3 group text-lg"
+              >
+                Book a Strategy Call <ArrowRight size={22} className="group-hover:translate-x-1.5 transition-transform text-primary" />
+              </Link>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+    </div>
+  );
+}
