@@ -2,9 +2,11 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useSession, signOut } from "next-auth/react";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: session, status } = useSession();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -22,10 +24,24 @@ export function Navbar() {
           <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">About</Link>
           <Link href="/services" className="text-muted-foreground hover:text-foreground transition-colors">Services</Link>
           <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</Link>
-          <Link href="/login" className="text-primary font-medium hover:underline">Login</Link>
-          <Link href="/signup" className="bg-primary text-primary-foreground px-4 py-2 rounded-md font-medium hover:bg-primary/90 transition-colors">
-            Sign Up
-          </Link>
+          
+          {status === "loading" ? (
+            <div className="h-9 w-20 bg-muted animate-pulse rounded-md"></div>
+          ) : session ? (
+            <>
+              <Link href="/dashboard" className="text-primary font-medium hover:underline">Dashboard</Link>
+              <button onClick={() => signOut()} className="bg-muted text-foreground px-4 py-2 rounded-md font-medium hover:bg-muted/80 transition-colors">
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link href="/login" className="text-primary font-medium hover:underline">Login</Link>
+              <Link href="/signup" className="bg-primary text-primary-foreground px-4 py-2 rounded-md font-medium hover:bg-primary/90 transition-colors">
+                Sign Up
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile Toggle */}
@@ -42,8 +58,17 @@ export function Navbar() {
           <Link href="/services" className="block text-foreground hover:text-primary" onClick={toggleMenu}>Services</Link>
           <Link href="/contact" className="block text-foreground hover:text-primary" onClick={toggleMenu}>Contact</Link>
           <div className="pt-4 border-t border-border flex flex-col gap-2">
-            <Link href="/login" className="block text-center border border-border px-4 py-2 rounded-md" onClick={toggleMenu}>Login</Link>
-            <Link href="/signup" className="block text-center bg-primary text-primary-foreground px-4 py-2 rounded-md" onClick={toggleMenu}>Sign Up</Link>
+            {session ? (
+              <>
+                <Link href="/dashboard" className="block text-center bg-primary text-primary-foreground px-4 py-2 rounded-md" onClick={toggleMenu}>Dashboard</Link>
+                <button onClick={() => { signOut(); toggleMenu(); }} className="block w-full text-center border border-border px-4 py-2 rounded-md">Sign Out</button>
+              </>
+            ) : (
+              <>
+                <Link href="/login" className="block text-center border border-border px-4 py-2 rounded-md" onClick={toggleMenu}>Login</Link>
+                <Link href="/signup" className="block text-center bg-primary text-primary-foreground px-4 py-2 rounded-md" onClick={toggleMenu}>Sign Up</Link>
+              </>
+            )}
           </div>
         </div>
       )}
