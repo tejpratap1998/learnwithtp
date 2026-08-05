@@ -64,12 +64,12 @@ export default async function AdminCoursesPage() {
                     <td className="px-6 py-4 text-muted-foreground">{new Date(course.updatedAt).toLocaleDateString()}</td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <button className="p-2 text-muted-foreground hover:text-primary transition-colors tooltip-trigger" title="Curriculum Builder">
+                        <Link href={`/admin/courses/${course._id}`} className="p-2 text-muted-foreground hover:text-primary transition-colors tooltip-trigger" title="Curriculum Builder">
                           <LayoutList size={18} />
-                        </button>
-                        <button className="p-2 text-muted-foreground hover:text-primary transition-colors" title="Edit Course Info">
+                        </Link>
+                        <Link href={`/admin/courses/${course._id}`} className="p-2 text-muted-foreground hover:text-primary transition-colors" title="Edit Course Info">
                           <Edit size={18} />
-                        </button>
+                        </Link>
                         <Link href={`/courses/${course.slug}`} className="p-2 text-muted-foreground hover:text-primary transition-colors" title="View Public Page">
                           <Eye size={18} />
                         </Link>
