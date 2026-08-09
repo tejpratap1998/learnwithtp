@@ -6,7 +6,6 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Activity, Search, TrendingUp, LineChart, FileText, Sparkles, CheckCircle2, XCircle, Play, ArrowRight, Briefcase, Settings, Target, Globe, Compass } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -186,11 +185,9 @@ export default function MentorSection() {
               <h3 className="text-3xl font-bold mb-3">Tejpratap</h3>
               <p className="text-white/70 font-medium mb-8">Performance Marketer &bull; Meta Ads Expert &bull; Digital Marketing Trainer</p>
               
-              <Link href="/courses">
-                <Button size="lg" className="rounded-full px-8 h-14 text-lg group/btn bg-primary hover:bg-primary/90 text-primary-foreground border-0">
+              <Link href="/courses" className="inline-flex items-center justify-center rounded-full px-8 h-14 text-lg font-medium group/btn bg-primary hover:bg-primary/90 text-primary-foreground border-0 transition-all">
                   Explore My Courses
                   <ArrowRight className="ml-2 w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
-                </Button>
               </Link>
             </div>
           </div>
@@ -387,16 +384,12 @@ export default function MentorSection() {
           <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
             Build practical skills. Work on real-world strategies. Become confident enough to create, analyze, optimize and scale campaigns.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/courses">
-              <Button size="lg" className="rounded-full px-8 h-14 text-lg w-full sm:w-auto shadow-xl hover:shadow-primary/30 transition-all">
-                Start Learning With Me <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
+            <Link href="/courses" className="inline-flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 h-14 text-lg font-medium w-full sm:w-auto shadow-xl hover:shadow-primary/30 transition-all group">
+                Start Learning With Me <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
-            <Link href="/courses">
-              <Button size="lg" variant="outline" className="rounded-full px-8 h-14 text-lg w-full sm:w-auto border-2">
+            <Link href="/courses" className="inline-flex items-center justify-center border-2 border-primary/50 text-primary hover:bg-primary/10 rounded-full px-8 h-14 text-lg font-medium w-full sm:w-auto transition-colors">
                 Explore Courses
-              </Button>
             </Link>
           </div>
         </div>
