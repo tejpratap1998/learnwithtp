@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, TrendingUp, Users, Target, BookOpen, PlayCircle, Star, ChevronRight, Lightbulb, Sparkles } from "lucide-react";
 import CourseCard from "@/components/CourseCard";
 import { ToolsSection } from "@/components/ToolsSection";
+import MentorSection from "@/components/MentorSection";
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -212,53 +213,8 @@ export default function HomeClient({ courses }: { courses: any[] }) {
         </div>
       </section>
 
-      {/* --- TRAINER SECTION --- */}
-      <section className="trainer-section py-24 border-y border-border bg-card overflow-hidden">
-        <div className="container mx-auto px-4 max-w-7xl">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            {/* Text Content */}
-            <div className="trainer-content space-y-8 order-2 md:order-1">
-              <div>
-                <span className="font-mono text-xs font-bold uppercase tracking-widest px-3 py-1 bg-foreground text-background rounded-full mb-6 inline-block">
-                  The Instructor
-                </span>
-                <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-foreground mb-4">
-                  Tej Pratap
-                </h2>
-                <p className="font-mono text-sm uppercase tracking-widest text-muted-foreground">
-                  3+ Years Agency & Academy Experience
-                </p>
-              </div>
-              
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                I've spent years mastering performance marketing, building scalable revenue engines for top agencies, and teaching ambitious marketers how to dominate their niche. My mission is to give you the exact frameworks that actually work in the real world.
-              </p>
-              
-              <div className="flex gap-8 pt-4">
-                <div>
-                  <h4 className="text-3xl font-semibold">100+</h4>
-                  <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mt-1">Students</p>
-                </div>
-                <div>
-                  <h4 className="text-3xl font-semibold">Top</h4>
-                  <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mt-1">Agency Expert</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Image Container */}
-            <div className="trainer-image order-1 md:order-2 flex justify-center">
-              <div className="w-full max-w-md aspect-square rounded-[2rem] bg-muted overflow-hidden border border-border">
-                <img 
-                  src="/images/tej-pratap.jpg" 
-                  alt="Tej Pratap - Instructor" 
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* --- MENTOR SECTION --- */}
+      <MentorSection />
     </div>
   );
 }
