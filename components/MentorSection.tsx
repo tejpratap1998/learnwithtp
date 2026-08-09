@@ -4,7 +4,9 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Activity, Search, TrendingUp, LineChart, FileText, Sparkles, CheckCircle2, XCircle } from "lucide-react";
+import { Activity, Search, TrendingUp, LineChart, FileText, Sparkles, CheckCircle2, XCircle, Play, ArrowRight, Briefcase, Settings, Target, Globe, Compass } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,6 +56,21 @@ export default function MentorSection() {
       gsap.fromTo(".compare-col",
         { y: 40, opacity: 0 },
         { scrollTrigger: { trigger: ".compare-section", start: "top 85%" }, y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power3.out" }
+      );
+      
+      gsap.fromTo(".brand-video-section",
+        { y: 40, opacity: 0, scale: 0.98 },
+        { scrollTrigger: { trigger: ".brand-video-section", start: "top 85%" }, y: 0, opacity: 1, scale: 1, duration: 1, ease: "power3.out" }
+      );
+
+      gsap.fromTo(".expect-card",
+        { y: 40, opacity: 0 },
+        { scrollTrigger: { trigger: ".expect-grid", start: "top 85%" }, y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out" }
+      );
+      
+      gsap.fromTo(".closing-cta-section",
+        { y: 40, opacity: 0, scale: 0.95 },
+        { scrollTrigger: { trigger: ".closing-cta-section", start: "top 85%" }, y: 0, opacity: 1, scale: 1, duration: 1, ease: "power3.out" }
       );
 
       gsap.utils.toArray(".section-header-anim").forEach((elem: any) => {
@@ -133,6 +150,48 @@ export default function MentorSection() {
                 alt="Tejpratap - Performance Marketer" 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
+            </div>
+          </div>
+        </div>
+
+        {/* 3.5 Brand Video CTA */}
+        <div className="brand-video-section max-w-5xl mx-auto mb-32 relative group">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 rounded-[3rem] blur-3xl -z-10 group-hover:blur-4xl transition-all duration-700"></div>
+          <div className="bg-black/80 dark:bg-card/40 backdrop-blur-2xl border border-white/10 dark:border-white/5 rounded-[3rem] p-8 md:p-12 shadow-2xl relative overflow-hidden text-white">
+            <div className="text-center mb-10">
+              <span className="font-mono text-xs font-bold uppercase tracking-widest px-4 py-2 bg-white/10 rounded-full mb-6 inline-block">
+                YOUR MENTOR
+              </span>
+            </div>
+            
+            <div className="relative aspect-video rounded-2xl overflow-hidden bg-black border border-white/10 mb-10 shadow-2xl group/video cursor-pointer">
+              {/* Replace src with actual video later */}
+              <video 
+                src="/videos/intro.mp4" 
+                poster="/images/tej-pratap.jpg"
+                className="w-full h-full object-cover opacity-80 group-hover/video:opacity-100 transition-opacity duration-500"
+                controls
+                muted
+                loop
+                playsInline
+              />
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                 <div className="w-20 h-20 rounded-full bg-primary/80 backdrop-blur-md flex items-center justify-center text-white scale-90 group-hover/video:scale-100 group-hover/video:bg-primary transition-all duration-300 shadow-[0_0_40px_rgba(37,99,235,0.5)]">
+                   <Play className="w-8 h-8 ml-1" />
+                 </div>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <h3 className="text-3xl font-bold mb-3">Tejpratap</h3>
+              <p className="text-white/70 font-medium mb-8">Performance Marketer &bull; Meta Ads Expert &bull; Digital Marketing Trainer</p>
+              
+              <Link href="/courses">
+                <Button size="lg" className="rounded-full px-8 h-14 text-lg group/btn bg-primary hover:bg-primary/90 text-primary-foreground border-0">
+                  Explore My Courses
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -235,6 +294,35 @@ export default function MentorSection() {
           </div>
         </div>
 
+        {/* 5.5 What Students Can Expect */}
+        <div className="mb-32">
+          <div className="section-header-anim text-center mb-16">
+            <span className="font-mono text-xs font-bold uppercase tracking-widest px-3 py-1 bg-muted text-foreground rounded-full mb-6 inline-block">
+              What Students Can Expect
+            </span>
+            <h3 className="text-3xl md:text-4xl font-bold">What You'll Get From My Mentorship</h3>
+          </div>
+          
+          <div className="expect-grid grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { icon: <Briefcase className="w-6 h-6 text-blue-500" />, title: "Practical Skills", desc: "Learn how digital marketing actually works inside businesses." },
+              { icon: <Settings className="w-6 h-6 text-red-500" />, title: "Real Tools", desc: "Work with the platforms marketers use every day." },
+              { icon: <Target className="w-6 h-6 text-green-500" />, title: "Campaign Thinking", desc: "Understand why campaigns work—not just where to click." },
+              { icon: <Search className="w-6 h-6 text-orange-500" />, title: "Problem Solving", desc: "Learn how to diagnose poor campaign performance." },
+              { icon: <Globe className="w-6 h-6 text-purple-500" />, title: "Industry Perspective", desc: "Understand how agencies and businesses approach marketing." },
+              { icon: <Compass className="w-6 h-6 text-amber-500" />, title: "Career Direction", desc: "Get clarity on what skills to build and how to apply them professionally." }
+            ].map((exp, idx) => (
+              <div key={idx} className="expect-card p-8 rounded-3xl bg-card border border-border hover:border-primary/30 transition-all flex flex-col items-start text-left group hover:shadow-xl">
+                <div className="w-12 h-12 rounded-2xl bg-muted flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  {exp.icon}
+                </div>
+                <h4 className="text-xl font-bold mb-3">{exp.title}</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">{exp.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* 6. Why Learn From Me? */}
         <div className="compare-section">
           <div className="section-header-anim text-center mb-16">
@@ -280,6 +368,36 @@ export default function MentorSection() {
                 ))}
               </ul>
             </div>
+          </div>
+        </div>
+
+        {/* 7. Closing CTA */}
+        <div className="closing-cta-section text-center max-w-4xl mx-auto py-16 md:py-24 px-6 relative">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl h-[400px] bg-primary/10 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
+          
+          <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-tight">
+            Don't Just Learn Digital Marketing.<br className="hidden md:block" />
+            <span className="text-primary relative inline-block mt-2">
+              Learn How to Think Like a Marketer.
+              <svg className="absolute w-full h-4 -bottom-1 left-0 text-accent/50" viewBox="0 0 100 10" preserveAspectRatio="none">
+                <path d="M0 5 Q 50 10 100 5" fill="none" stroke="currentColor" strokeWidth="4" />
+              </svg>
+            </span>
+          </h2>
+          <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
+            Build practical skills. Work on real-world strategies. Become confident enough to create, analyze, optimize and scale campaigns.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="/courses">
+              <Button size="lg" className="rounded-full px-8 h-14 text-lg w-full sm:w-auto shadow-xl hover:shadow-primary/30 transition-all">
+                Start Learning With Me <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </Link>
+            <Link href="/courses">
+              <Button size="lg" variant="outline" className="rounded-full px-8 h-14 text-lg w-full sm:w-auto border-2">
+                Explore Courses
+              </Button>
+            </Link>
           </div>
         </div>
 
