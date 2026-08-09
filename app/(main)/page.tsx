@@ -4,6 +4,7 @@ import dbConnect from "@/lib/mongodb";
 import Course from "@/models/Course";
 import CourseCard from "@/components/CourseCard";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/FadeIn";
+import { ToolsSection } from "@/components/ToolsSection";
 
 async function getFeaturedCourses() {
   try {
@@ -148,6 +149,9 @@ export default async function Home() {
           </StaggerContainer>
         </div>
       </section>
+
+      {/* --- TOOLS & PLATFORMS SECTION --- */}
+      <ToolsSection />
 
       {/* --- TRAINER SECTION --- */}
       <section className="py-32 relative border-b border-border bg-background">
