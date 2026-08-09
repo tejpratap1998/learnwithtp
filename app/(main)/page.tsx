@@ -182,6 +182,57 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* --- TRAINER SECTION --- */}
+      <section className="py-32 relative border-t border-white/5 bg-[#030303]">
+        <div className="container mx-auto px-4 relative z-10">
+          <FadeIn direction="up">
+            <div className="flex flex-col md:flex-row items-center gap-12 md:gap-20 max-w-6xl mx-auto">
+              {/* Image Container */}
+              <div className="w-full md:w-1/2 flex justify-center md:justify-end">
+                <div className="relative w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-2 border-white/10 shadow-[0_0_50px_-12px_rgba(37,99,235,0.4)] group">
+                  {/* UPDATE THIS IMAGE SRC */}
+                  <img 
+                    src="/images/tej-pratap.jpg" 
+                    alt="Tej Pratap - Instructor" 
+                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent mix-blend-overlay pointer-events-none"></div>
+                </div>
+              </div>
+              
+              {/* Text Content */}
+              <div className="w-full md:w-1/2 space-y-6 text-center md:text-left">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20">
+                  <span className="text-xs font-bold uppercase tracking-widest">Meet Your Instructor</span>
+                </div>
+                <h2 className="text-5xl md:text-6xl font-black tracking-tight text-white">
+                  Tej Pratap
+                </h2>
+                <h3 className="text-2xl text-transparent bg-clip-text bg-gradient-to-r from-white to-white/50 font-medium">
+                  3+ Years Experience <span className="text-accent italic">&</span> Academy
+                </h3>
+                <p className="text-lg text-white/50 leading-relaxed font-light">
+                  I've spent years mastering performance marketing, building scalable revenue engines for top agencies, and teaching ambitious marketers how to dominate their niche. My mission is to give you the exact frameworks that actually work in the real world.
+                </p>
+                <div className="pt-4">
+                  <div className="flex items-center justify-center md:justify-start gap-4">
+                    <div className="flex flex-col">
+                      <span className="text-3xl font-black text-white">100+</span>
+                      <span className="text-xs text-white/50 uppercase tracking-wider">Students</span>
+                    </div>
+                    <div className="w-px h-10 bg-white/10"></div>
+                    <div className="flex flex-col">
+                      <span className="text-3xl font-black text-white">Top</span>
+                      <span className="text-xs text-white/50 uppercase tracking-wider">Agency Expert</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* --- SERVICES SECTION --- */}
       <section className="py-32 bg-[#080808] border-t border-white/5 relative overflow-hidden">
         {/* Subtle grid background */}
