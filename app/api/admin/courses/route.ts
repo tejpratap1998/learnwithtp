@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import dbConnect from "@/lib/mongodb";
 import Course from "@/models/Course";
+import { revalidatePath } from "next/cache";
 
 function generateSlug(title: string) {
   return title
@@ -42,6 +43,9 @@ export async function POST(req: Request) {
       price: Number(data.price),
       originalPrice: data.originalPrice ? Number(data.originalPrice) : undefined,
     });
+
+    revalidatePath("/");
+    revalidatePath("/courses");
 
     return NextResponse.json({ message: "Course created successfully", course }, { status: 201 });
   } catch (error) {

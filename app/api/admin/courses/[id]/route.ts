@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import dbConnect from "@/lib/mongodb";
 import Course from "@/models/Course";
+import { revalidatePath } from "next/cache";
 
 export async function GET(req: Request, { params }: { params: { id: string } }) {
   try {
@@ -59,6 +60,10 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
     if (!course) {
       return NextResponse.json({ message: "Course not found" }, { status: 404 });
     }
+
+    revalidatePath("/");
+    revalidatePath("/courses");
+    revalidatePath(`/courses/${course.slug}`);
 
     return NextResponse.json({ message: "Course updated successfully", course });
   } catch (error) {
