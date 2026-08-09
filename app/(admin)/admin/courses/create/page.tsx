@@ -114,7 +114,7 @@ export default function CreateCoursePage() {
           <div className="space-y-2">
             <label className="text-sm font-medium" htmlFor="thumbnail">Thumbnail Image URL</label>
             <input 
-              type="url" 
+              type="text" 
               id="thumbnail" 
               name="thumbnail"
               value={formData.thumbnail}
