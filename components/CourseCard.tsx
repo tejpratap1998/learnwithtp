@@ -16,7 +16,7 @@ export default function CourseCard({ course }: { course: any }) {
       className="group flex flex-col bg-card border border-border rounded-[2rem] overflow-hidden hover:border-foreground/30 transition-colors relative h-full min-h-[450px]"
     >
       {/* Thumbnail */}
-      <div className="relative aspect-[4/3] w-full bg-muted overflow-hidden border-b border-border">
+      <div className="relative aspect-[9/16] w-full bg-muted overflow-hidden border-b border-border">
         {course.thumbnail ? (
           <img 
             src={course.thumbnail} 
