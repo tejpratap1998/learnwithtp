@@ -1,10 +1,69 @@
 "use client";
 
 import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Activity, Search, TrendingUp, LineChart, FileText, Sparkles, CheckCircle2, XCircle } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function MentorSection() {
   const containerRef = useRef(null);
+
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+    
+    mm.add("(min-width: 768px)", () => {
+      // Use fromTo to avoid React Strict Mode state bugs
+      gsap.fromTo(".mentor-header", 
+        { y: 40, opacity: 0 },
+        { scrollTrigger: { trigger: ".mentor-header", start: "top 85%" }, y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
+      );
+
+      gsap.fromTo(".mentor-profile-left",
+        { x: -50, opacity: 0 },
+        { scrollTrigger: { trigger: ".mentor-profile-section", start: "top 80%" }, x: 0, opacity: 1, duration: 1, ease: "power3.out" }
+      );
+
+      gsap.fromTo(".mentor-profile-right",
+        { x: 50, opacity: 0 },
+        { scrollTrigger: { trigger: ".mentor-profile-section", start: "top 80%" }, x: 0, opacity: 1, duration: 1, ease: "power3.out" }
+      );
+
+      gsap.fromTo(".stat-card",
+        { y: 30, opacity: 0 },
+        { scrollTrigger: { trigger: ".stats-grid", start: "top 85%" }, y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out" }
+      );
+
+      gsap.fromTo(".expertise-card",
+        { y: 40, opacity: 0 },
+        { scrollTrigger: { trigger: ".expertise-grid", start: "top 85%" }, y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out" }
+      );
+
+      gsap.fromTo(".philosophy-step",
+        { y: 40, opacity: 0 },
+        { scrollTrigger: { trigger: ".philosophy-section", start: "top 85%" }, y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "back.out(1.2)" }
+      );
+
+      gsap.fromTo(".philosophy-quote",
+        { scale: 0.95, opacity: 0 },
+        { scrollTrigger: { trigger: ".philosophy-quote", start: "top 85%" }, scale: 1, opacity: 1, duration: 0.8, ease: "power3.out", delay: 0.2 }
+      );
+
+      gsap.fromTo(".compare-col",
+        { y: 40, opacity: 0 },
+        { scrollTrigger: { trigger: ".compare-section", start: "top 85%" }, y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power3.out" }
+      );
+
+      gsap.utils.toArray(".section-header-anim").forEach((elem: any) => {
+        gsap.fromTo(elem,
+          { y: 30, opacity: 0 },
+          { scrollTrigger: { trigger: elem, start: "top 85%" }, y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
+        );
+      });
+    });
+  }, { scope: containerRef });
 
   return (
     <section ref={containerRef} className="py-24 bg-background relative overflow-hidden">
@@ -80,7 +139,7 @@ export default function MentorSection() {
 
         {/* 4. Expertise */}
         <div className="mb-32">
-          <div className="text-center mb-16">
+          <div className="section-header-anim text-center mb-16">
             <h3 className="text-3xl md:text-4xl font-bold">My Areas of Expertise</h3>
           </div>
           
@@ -141,28 +200,31 @@ export default function MentorSection() {
         <div className="philosophy-section mb-32 relative">
           <div className="absolute inset-0 bg-accent/5 rounded-[3rem] -z-10"></div>
           <div className="px-6 py-16 md:p-20">
-            <div className="text-center mb-16">
+            <div className="section-header-anim text-center mb-16">
               <h3 className="text-3xl md:text-4xl font-bold mb-4">How I Teach</h3>
               <p className="text-muted-foreground max-w-2xl mx-auto">A structured approach to ensure you don't just learn, but actually implement and generate results.</p>
             </div>
             
-            <div className="grid md:grid-cols-5 gap-6 mb-16">
+            <div className="relative grid md:grid-cols-5 gap-8 mb-20">
+              <div className="hidden md:block absolute top-8 left-[10%] right-[10%] h-[2px] bg-border -z-10"></div>
               {[
                 { step: "01", title: "Learn", desc: "Understand the concept and why it matters." },
                 { step: "02", title: "Implement", desc: "Apply it inside real tools and platforms." },
                 { step: "03", title: "Analyze", desc: "Read campaign data and identify what's working—and what's not." },
                 { step: "04", title: "Optimize", desc: "Make decisions based on data instead of assumptions." },
-                { step: "05", title: "Scale", desc: "Learn how to turn a working strategy into a repeatable growth system." }
+                { step: "05", title: "Scale", desc: "Learn how to turn a repeatable strategy into a growth system." }
               ].map((item, idx) => (
-                <div key={idx} className="philosophy-step flex flex-col items-center text-center">
-                  <div className="text-4xl font-black text-muted/50 mb-4">{item.step}</div>
-                  <h4 className="text-lg font-bold mb-2">{item.title}</h4>
-                  <p className="text-sm text-muted-foreground">{item.desc}</p>
+                <div key={idx} className="philosophy-step flex flex-col items-center text-center relative z-10">
+                  <div className="w-16 h-16 rounded-full bg-background border-[4px] border-primary flex items-center justify-center text-xl font-black text-primary mb-6 shadow-xl">
+                    {item.step}
+                  </div>
+                  <h4 className="text-xl font-bold mb-3">{item.title}</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
                 </div>
               ))}
             </div>
 
-            <div className="philosophy-step max-w-4xl mx-auto text-center p-8 md:p-12 bg-primary text-primary-foreground rounded-3xl shadow-2xl relative overflow-hidden">
+            <div className="philosophy-quote max-w-4xl mx-auto text-center p-8 md:p-12 bg-primary text-primary-foreground rounded-3xl shadow-[0_20px_50px_-12px_rgba(37,99,235,0.4)] relative overflow-hidden">
               <div className="absolute top-0 right-0 p-8 opacity-10">
                 <Sparkles className="w-32 h-32" />
               </div>
@@ -175,7 +237,7 @@ export default function MentorSection() {
 
         {/* 6. Why Learn From Me? */}
         <div className="compare-section">
-          <div className="text-center mb-16">
+          <div className="section-header-anim text-center mb-16">
             <h3 className="text-3xl md:text-4xl font-bold mb-4">More Than a Teacher. A Practicing Marketer.</h3>
           </div>
           
