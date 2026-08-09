@@ -62,6 +62,11 @@ export default function MentorSection() {
         { scrollTrigger: { trigger: ".brand-video-section", start: "top 85%" }, y: 0, opacity: 1, scale: 1, duration: 1, ease: "power3.out" }
       );
 
+      gsap.fromTo(".mentor-img-parallax",
+        { y: -20 },
+        { scrollTrigger: { trigger: ".mentor-img-container", start: "top bottom", end: "bottom top", scrub: 1 }, y: 20, ease: "none" }
+      );
+
       gsap.fromTo(".expect-card",
         { y: 40, opacity: 0 },
         { scrollTrigger: { trigger: ".expect-grid", start: "top 85%" }, y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out" }
@@ -78,6 +83,24 @@ export default function MentorSection() {
           { scrollTrigger: { trigger: elem, start: "top 85%" }, y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
         );
       });
+
+      // Horizontal Scroll Animation for Desktop
+      const timelineContainer = document.querySelector(".philosophy-timeline-container") as HTMLElement;
+      if (timelineContainer) {
+        gsap.to(timelineContainer, {
+          x: () => -(timelineContainer.scrollWidth - window.innerWidth + 200),
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".philosophy-timeline-trigger",
+            pin: true,
+            scrub: 1,
+            start: "center center",
+            end: () => "+=" + (timelineContainer.scrollWidth - window.innerWidth + 200),
+            invalidateOnRefresh: true,
+          }
+        });
+      }
+
     });
   }, { scope: containerRef });
 
@@ -142,12 +165,12 @@ export default function MentorSection() {
           </div>
 
           <div className="mentor-profile-right order-1 md:order-2">
-            <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden bg-muted border border-border group shadow-2xl">
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent z-10"></div>
+            <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden bg-muted border border-border group shadow-2xl mentor-img-container">
+              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent z-10 pointer-events-none"></div>
               <img 
                 src="/images/tej-pratap.jpg" 
                 alt="Tejpratap - Performance Marketer" 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-[120%] object-cover mentor-img-parallax absolute top-[-10%]"
               />
             </div>
           </div>
@@ -261,23 +284,26 @@ export default function MentorSection() {
               <p className="text-muted-foreground max-w-2xl mx-auto">A structured approach to ensure you don't just learn, but actually implement and generate results.</p>
             </div>
             
-            <div className="relative grid md:grid-cols-5 gap-8 mb-20">
-              <div className="hidden md:block absolute top-8 left-[10%] right-[10%] h-[2px] bg-border -z-10"></div>
-              {[
-                { step: "01", title: "Learn", desc: "Understand the concept and why it matters." },
-                { step: "02", title: "Implement", desc: "Apply it inside real tools and platforms." },
-                { step: "03", title: "Analyze", desc: "Read campaign data and identify what's working—and what's not." },
-                { step: "04", title: "Optimize", desc: "Make decisions based on data instead of assumptions." },
-                { step: "05", title: "Scale", desc: "Learn how to turn a repeatable strategy into a growth system." }
-              ].map((item, idx) => (
-                <div key={idx} className="philosophy-step flex flex-col items-center text-center relative z-10">
-                  <div className="w-16 h-16 rounded-full bg-background border-[4px] border-primary flex items-center justify-center text-xl font-black text-primary mb-6 shadow-xl">
-                    {item.step}
+            {/* Pinned Horizontal Section on Desktop */}
+            <div className="philosophy-timeline-trigger overflow-hidden relative py-10 w-full">
+              <div className="philosophy-timeline-container flex flex-col md:flex-row gap-12 md:gap-0 md:w-[150vw] lg:w-[120vw] relative">
+                <div className="hidden md:block absolute top-8 left-[5%] right-[5%] h-[2px] bg-border -z-10"></div>
+                {[
+                  { step: "01", title: "Learn", desc: "Understand the concept and why it matters." },
+                  { step: "02", title: "Implement", desc: "Apply it inside real tools and platforms." },
+                  { step: "03", title: "Analyze", desc: "Read campaign data and identify what's working—and what's not." },
+                  { step: "04", title: "Optimize", desc: "Make decisions based on data instead of assumptions." },
+                  { step: "05", title: "Scale", desc: "Learn how to turn a repeatable strategy into a growth system." }
+                ].map((item, idx) => (
+                  <div key={idx} className="philosophy-step flex-1 flex flex-col items-center text-center relative z-10 px-4">
+                    <div className="w-16 h-16 rounded-full bg-background border-[4px] border-primary flex items-center justify-center text-xl font-black text-primary mb-6 shadow-xl">
+                      {item.step}
+                    </div>
+                    <h4 className="text-xl font-bold mb-3">{item.title}</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed max-w-[200px]">{item.desc}</p>
                   </div>
-                  <h4 className="text-xl font-bold mb-3">{item.title}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
             <div className="philosophy-quote max-w-4xl mx-auto text-center p-8 md:p-12 bg-primary text-primary-foreground rounded-3xl shadow-[0_20px_50px_-12px_rgba(37,99,235,0.4)] relative overflow-hidden">
