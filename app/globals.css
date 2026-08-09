@@ -4,54 +4,54 @@
 
 @layer base {
   :root {
-    /* Light Mode */
-    --background: 0 0% 100%; /* #FFFFFF */
-    --foreground: 257 51% 22%; /* Deep Purple #2B1B54 */
-    --card: 0 0% 98%; /* Light Gray */
-    --card-foreground: 257 51% 22%;
+    /* Light Mode - LaunchFolio Style */
+    --background: 0 0% 98%; /* #FAFAFA */
+    --foreground: 0 0% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 257 51% 22%;
-    --primary: 257 51% 22%; /* Deep Purple */
-    --primary-foreground: 0 0% 100%;
-    --secondary: 46 65% 52%; /* Gold #D4AF37 */
-    --secondary-foreground: 0 0% 100%;
-    --muted: 240 5% 90%;
-    --muted-foreground: 257 20% 40%;
-    --accent: 46 65% 52%; /* Gold */
-    --accent-foreground: 257 51% 22%;
+    --popover-foreground: 0 0% 9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 90%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 0 0% 94%;
+    --accent-foreground: 0 0% 9%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
     --success: 160 84% 39%;
     --success-foreground: 210 40% 98%;
-    --border: 240 5% 90%;
-    --input: 240 5% 90%;
-    --ring: 257 51% 22%;
-    --radius: 0.75rem;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 0 0% 9%;
+    --radius: 1.5rem;
   }
 
   .dark {
-    /* Dark Mode */
-    --background: 257 51% 15%; /* Darker Deep Purple */
-    --foreground: 0 0% 100%; /* White */
-    --card: 257 40% 20%;
-    --card-foreground: 0 0% 100%;
-    --popover: 257 40% 20%;
-    --popover-foreground: 0 0% 100%;
-    --primary: 46 65% 52%; /* Gold */
-    --primary-foreground: 257 51% 15%;
-    --secondary: 257 40% 25%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 257 40% 25%;
-    --muted-foreground: 257 20% 70%;
-    --accent: 46 65% 52%; /* Gold */
-    --accent-foreground: 257 51% 15%;
+    /* Dark Mode - LaunchFolio Style */
+    --background: 0 0% 6%; /* #0F0F0F */
+    --foreground: 0 0% 98%;
+    --card: 0 0% 9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
     --success: 160 84% 39%;
     --success-foreground: 0 0% 100%;
-    --border: 257 40% 25%;
-    --input: 257 40% 25%;
-    --ring: 46 65% 52%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 98%;
   }
 }
 
