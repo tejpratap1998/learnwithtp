@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import dbConnect from "@/lib/mongodb";
 import Course from "@/models/Course";
+import Settings from "@/models/Settings";
 import Razorpay from "razorpay";
 
 export async function POST(req: Request) {
@@ -23,14 +24,19 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: "Course not found" }, { status: 404 });
     }
 
-    if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
-      console.error("Razorpay keys are missing in env");
+    // Fetch Razorpay Keys from DB, fallback to env variables
+    const settings = await Settings.findOne();
+    const keyId = settings?.razorpayKeyId || process.env.RAZORPAY_KEY_ID;
+    const keySecret = settings?.razorpayKeySecret || process.env.RAZORPAY_KEY_SECRET;
+
+    if (!keyId || !keySecret) {
+      console.error("Razorpay keys are missing in DB and env");
       return NextResponse.json({ message: "Payment gateway configuration error" }, { status: 500 });
     }
 
     const razorpay = new Razorpay({
-      key_id: process.env.RAZORPAY_KEY_ID,
-      key_secret: process.env.RAZORPAY_KEY_SECRET,
+      key_id: keyId,
+      key_secret: keySecret,
     });
 
     // Razorpay amount is in paise (smallest currency unit for INR)
@@ -48,7 +54,7 @@ export async function POST(req: Request) {
       orderId: order.id, 
       amount, 
       currency: order.currency,
-      keyId: process.env.RAZORPAY_KEY_ID
+      keyId: keyId
     }, { status: 200 });
   } catch (error) {
     console.error("Error creating order:", error);

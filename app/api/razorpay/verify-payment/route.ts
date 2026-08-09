@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 import dbConnect from "@/lib/mongodb";
 import Enrollment from "@/models/Enrollment";
 import Course from "@/models/Course";
+import Settings from "@/models/Settings";
 import crypto from "crypto";
 
 export async function POST(req: Request) {
@@ -15,7 +16,12 @@ export async function POST(req: Request) {
 
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature, courseId } = await req.json();
     
-    const secret = process.env.RAZORPAY_KEY_SECRET;
+    await dbConnect();
+    
+    // Fetch Razorpay Secret from DB, fallback to env variables
+    const settings = await Settings.findOne();
+    const secret = settings?.razorpayKeySecret || process.env.RAZORPAY_KEY_SECRET;
+    
     if (!secret) {
       return NextResponse.json({ message: "Razorpay secret not configured" }, { status: 500 });
     }
@@ -31,8 +37,6 @@ export async function POST(req: Request) {
     if (!isAuthentic) {
       return NextResponse.json({ message: "Invalid payment signature" }, { status: 400 });
     }
-
-    await dbConnect();
 
     const userId = (session.user as any).id;
 
