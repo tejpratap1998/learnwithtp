@@ -1,62 +1,13 @@
 "use client";
 
 import { useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Activity, Search, TrendingUp, LineChart, FileText, Sparkles, CheckCircle2, XCircle } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function MentorSection() {
   const containerRef = useRef(null);
 
-  useGSAP(() => {
-    const mm = gsap.matchMedia();
-    
-    mm.add("(min-width: 768px)", () => {
-      gsap.from(".mentor-header", {
-        scrollTrigger: { trigger: ".mentor-header", start: "top 85%" },
-        y: 40, opacity: 0, duration: 0.8, ease: "power3.out"
-      });
-
-      gsap.from(".mentor-profile-left", {
-        scrollTrigger: { trigger: ".mentor-profile-section", start: "top 80%" },
-        x: -50, opacity: 0, duration: 1, ease: "power3.out"
-      });
-
-      gsap.from(".mentor-profile-right", {
-        scrollTrigger: { trigger: ".mentor-profile-section", start: "top 80%" },
-        x: 50, opacity: 0, duration: 1, ease: "power3.out"
-      });
-
-      gsap.from(".stat-card", {
-        scrollTrigger: { trigger: ".stats-grid", start: "top 85%" },
-        y: 30, opacity: 0, duration: 0.6, stagger: 0.1, ease: "power3.out"
-      });
-
-      gsap.from(".expertise-card", {
-        scrollTrigger: { trigger: ".expertise-grid", start: "top 85%" },
-        y: 40, opacity: 0, duration: 0.6, stagger: 0.1, ease: "power3.out"
-      });
-
-      gsap.from(".philosophy-step", {
-        scrollTrigger: { trigger: ".philosophy-section", start: "top 85%" },
-        y: 30, opacity: 0, duration: 0.6, stagger: 0.1, ease: "power3.out"
-      });
-
-      gsap.from(".compare-col", {
-        scrollTrigger: { trigger: ".compare-section", start: "top 85%" },
-        y: 40, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out"
-      });
-    });
-  }, { scope: containerRef });
-
   return (
     <section ref={containerRef} className="py-24 bg-background relative overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[800px] bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
-
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
         
         {/* 1. Section Heading */}
