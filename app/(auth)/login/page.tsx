@@ -29,7 +29,13 @@ export default function LoginPage() {
         setError(res.error);
         setIsLoading(false);
       } else {
-        router.push("/dashboard");
+        const { getSession } = await import("next-auth/react");
+        const session = await getSession();
+        if ((session?.user as any)?.role === "admin") {
+          router.push("/admin");
+        } else {
+          router.push("/dashboard");
+        }
         router.refresh();
       }
     } catch (err) {
